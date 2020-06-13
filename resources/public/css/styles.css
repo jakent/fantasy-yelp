@@ -1,0 +1,78 @@
+.app {
+    height: 100vh;
+    width: 100vw;
+}
+
+.header {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fantasy {
+    color: #d32323;
+    font-size: 3rem;
+}
+
+.yelp {
+    background-image: url("/assets/yelp-logo.png");
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 300px;
+}
+
+.map {
+    background-image: url("https://i.pinimg.com/originals/f8/91/b4/f891b4e5df6e75d5291f2147be7a21ee.jpg");
+    background-repeat: no-repeat;
+    min-width: 641px;
+    max-width: 641px;
+    position: relative;
+}
+
+.location {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    background-color: black;
+}
+
+.item {
+    background-image: url("https://s3.amazonaws.com/files.d20.io/images/105716505/oymO0pnVyLCv-tQDw2vddA/med.png");
+    margin: 0 5px;
+    padding: 0 10px 5px;
+    font-size: 1.5rem;
+    color: #58170D;
+}
+
+.item-name {
+    font-size: 3rem;
+    font-weight: bolder;
+    font-variant: small-caps;
+}
+
+.item-description {
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.gold {
+    height: 6px;
+    background-image: url(https://s3.amazonaws.com/files.d20.io/images/105716694/59KW_4mBR3y_Iz45sQw2-g/med.png);
+    border: 1px solid #2f2112;
+    border-radius: 2px;
+}
+
+.attribute {
+    display: flex;
+}
+
+.attribute-name {
+    font-weight: bold;
+}
+
+* {
+    font-family: mrs-eaves, serif;
+    font-style: normal;
+    font-weight: 400;
+}
