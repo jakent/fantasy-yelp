@@ -1,5 +1,0 @@
-* fantasy-yelp
-FIXME: description
-
-* To start
-=(figwheel-up)=
