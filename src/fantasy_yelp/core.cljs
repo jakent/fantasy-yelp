@@ -29,12 +29,12 @@
 (def locations
   [{:name        "Triboar Supply"
     :description "humble store"
-    :style       {:top 152 :left 259}
+    :style       {:top 145 :left 251}
     :items       data}
 
    {:name        "Triboar Supply2"
     :description "humble store"
-    :style       {:top 332 :left 279}
+    :style       {:top 323 :left 270}
     :items       [(get data 1)]}])
 
 (defonce active (r/atom {}))
@@ -64,11 +64,13 @@
    [:div {:style {:display "flex"
                   :height  "100%"}}
     [:div.map
-     (map (fn [{:keys [style name] :as l}]
-            [:div.location {:style    style
-                            :key      name
-                            :on-click (fn [_] (reset! active l))}])
-          locations)]
+     (map-indexed (fn [index
+                       {:keys [style name] :as l}]
+                    [:div.location {:style    style
+                                    :key      name
+                                    :on-click (fn [_] (reset! active l))}
+                     (inc index)])
+                  locations)]
     [:div {:style {:width "100%"}}
      [:div.gold]
      (map (fn [{:keys [name description] :as detail}]
