@@ -53,14 +53,9 @@
           [attribute {:key (str name k) :name k :value v}])
         attributes)])
 
-(defn header []
-  [:div.header
-   [:div.fantasy "FANTASY"]
-   [:div.yelp]])
-
 (defn app-container []
   [:div.app
-   [header]
+   [:div.yelp]
    [:div {:style {:display "flex"
                   :height  "100%"}}
     [:div.map

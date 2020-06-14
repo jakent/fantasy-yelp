@@ -3,23 +3,17 @@
     width: 100vw;
 }
 
-.header {
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.fantasy {
-    color: rgb(244, 13, 21);
-    font-size: 3rem;
-}
-
 .yelp {
     background-image: url("/assets/yelp-logo.png");
     background-repeat: no-repeat;
-    height: 150px;
-    width: 300px;
+    height: 65px;
+    width: 132px;
+
+    position: fixed;
+    z-index: 10;
+    top: 54px;
+    left: 179px;
+    background-size: contain;
 }
 
 .map {
