@@ -34,7 +34,7 @@
 
    {:name        "Triboar Supply2"
     :description "humble store"
-    :style       {:top 323 :left 270}
+    :style       {:top 326 :left 275}
     :items       [(get data 1)]}])
 
 (defonce active (r/atom {}))
@@ -55,10 +55,11 @@
 
 (defn app-container []
   [:div.app
-   [:div.yelp]
    [:div {:style {:display "flex"
-                  :height  "100%"}}
+                  :height  "100%"
+                  :overflow "auto"}}
     [:div.map
+     [:div.yelp]
      (map-indexed (fn [index
                        {:keys [style name] :as l}]
                     [:div.location {:style    style
