@@ -1,1 +1,36 @@
-{:port 5000}
+{:port 5000
+ :locations [{:name        "Foehammer's Forge"
+              :description "The finest weapons and armor. Apprentice wanted."
+              :style       {:top 145 :left 251}
+              :items       [{:name        "Padded Armor"
+                             :description "light armor (armor)"
+                             :attributes  {"AC"          11
+                                           "Category"    "Items"
+                                           "Item Rarity" "Standard"
+                                           "Stealth"     "Disadvantage"
+                                           "Weight"      8}}
+
+                            {:name        "Hide Armor"
+                             :description "medium armor (armor)"
+                             :attributes  {"AC"          12
+                                           "Category"    "Items"
+                                           "Item Rarity" "Standard"
+                                           "Stealth"     "Disadvantage"
+                                           "Weight"      12}}
+
+                            {:name        "Plate Armor"
+                             :description "medium armor (armor)"
+                             :attributes  {"AC"          18
+                                           "Category"    "Items"
+                                           "Item Rarity" "Standard"
+                                           "Stealth"     "Disadvantage"
+                                           "Weight"      65}}]}
+
+             {:name        "Uldinath's Arms"
+              :description "The finest weapons and armor."
+              :style       {:top 326 :left 275}
+              :items       [{:name        "Wand Of Magic Detection"
+                             :description "adventuring gear (wand)"
+                             :attributes  {"Category"    "Items"
+                                           "Item Rarity" "Uncommon"
+                                           "Weight"      1}}]}]}

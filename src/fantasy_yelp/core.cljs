@@ -1,41 +1,15 @@
 (ns fantasy-yelp.core
+  (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [reagent.core :as r]
+            [cljs-http.client :as http]
+            [cljs.core.async :refer [<!]]
             [goog.dom :as gdom]))
 
+(defonce locations (r/atom []))
 
-(def data
-  [{:name        "Padded Armor"
-    :description "light armor (armor)"
-    :attributes  {"AC"          11
-                  "Category"    "Items"
-                  "Item Rarity" "Standard"
-                  "Stealth"     "Disadvantage"
-                  "Weight"      8}}
-
-   {:name        "Hide Armor"
-    :description "medium armor (armor)"
-    :attributes  {"AC"          12
-                  "Category"    "Items"
-                  "Item Rarity" "Standard"
-                  "Stealth"     "Disadvantage"
-                  "Weight"      12}}
-
-   {:name        "Wand Of Magic Detection"
-    :description "adventuring gear (wand)"
-    :attributes  {"Category"    "Items"
-                  "Item Rarity" "Uncommon"
-                  "Weight"      1}}])
-
-(def locations
-  [{:name        "Triboar Supply"
-    :description "humble store"
-    :style       {:top 145 :left 251}
-    :items       data}
-
-   {:name        "Triboar Supply2"
-    :description "humble store"
-    :style       {:top 326 :left 275}
-    :items       [(get data 1)]}])
+(go (let [response (<! (http/get "/api/foo"
+                                 {:with-credentials? false}))]
+      (reset! locations (response :body))))
 
 (defonce active (r/atom {}))
 
@@ -66,7 +40,7 @@
                                     :key      name
                                     :on-click (fn [_] (reset! active l))}
                      (inc index)])
-                  locations)]
+                  @locations)]
     [:div {:style {:width "100%"}}
      [:div.gold]
      (map (fn [{:keys [name description] :as detail}]

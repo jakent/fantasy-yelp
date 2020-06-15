@@ -3,10 +3,11 @@
             [mount.core :as mount :refer [start stop]]
             [fantasy-yelp.web :as web]))
 
-(defn figwheel-up []
-  (do (repl-api/start-figwheel!)
-      (repl-api/cljs-repl)))
-
 (defn restart []
   (mount/stop)
   (mount/start))
+
+(defn figwheel-up []
+  (do (restart)
+      (repl-api/start-figwheel!)
+      (repl-api/cljs-repl)))
