@@ -78,10 +78,3 @@
     ]])
 
 (r/render-component [app-container] (gdom/getElement "app"))
-
-;; install the service worker
-(when (exists? js/navigator.serviceWorker)
-  (-> js/navigator
-      .-serviceWorker
-      (.register "/sw.js")
-      (.then #(js/console.log "Server worker registered."))))

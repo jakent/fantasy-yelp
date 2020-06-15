@@ -1,20 +1,35 @@
 (ns fantasy-yelp.web
-  (:require [compojure.core :refer [defroutes GET ANY]]
-            [compojure.handler :refer [site]]
-            [compojure.route :as route]
-            [clojure.java.io :as io]
-            [ring.adapter.jetty :as jetty]
-            [ring.middleware.ssl :as ssl]
-            [environ.core :refer [env]]))
+  (:require [clojure.java.io :as io]
+            [org.httpkit.server :as server]
+            [mount.core :as mount]
+            [cprop.core :as cp]
+            [cprop.source :as cps]
+            [reitit.ring :as ring]))
 
-(defroutes app
-  (GET "/" []
-       (slurp (io/resource "public/index.html")))
-  (route/resources "/")
-  (ANY "*" []
-       (route/not-found "<h1>404 Not found</h1>")))
+(defn app []
+  (ring/ring-handler
+    (ring/router
+      [["/" {:get (constantly
+                    {:status 200
+                     :body   (slurp (io/resource "public/index.html"))})}]
+       ["/api/foo" (fn [_]
+                     {:status 200
+                      :body   "sucess"})]])
+    (ring/routes
+      (ring/create-resource-handler
+        {:path "/"})
+      (ring/create-default-handler))))
 
-(defn -main [& [port]]
-  (let [port (Integer. (or port (env :port) 5000))]
-    (jetty/run-jetty (site #'app)
-                     {:port port :join? false})))
+(mount/defstate config :start (cp/load-config :merge [(cps/from-env)])
+                :stop :stopped)
+
+(defn start-server [{:keys [port]}]
+  (server/run-server (app) {:port port}))
+
+(mount/defstate ^{:on-reload :noop} http-server
+                :start (start-server config)
+                :stop (http-server))
+
+(defn -main [& _]
+  (mount/start)
+  (println "server started at port:" (config :port)))
