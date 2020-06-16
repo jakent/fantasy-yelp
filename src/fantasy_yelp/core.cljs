@@ -46,12 +46,12 @@
 
 (defn app-container []
   [:div.app
-   [:div {:style {:display  "flex"
-                  :height   "100%"
-                  :overflow "auto"}}
-    [:div.map
-     [:div.yelp]
-     (map-indexed destination @locations)]
-    [location @active]]])
+   [:div.map {:on-click (fn [event]
+                          (let [offset #(- % 15)]
+                            (println {:top  (offset (.. event -nativeEvent -offsetY))
+                                      :left (offset (.. event -nativeEvent -offsetX))})))}
+    [:div.yelp]
+    (map-indexed destination @locations)]
+   [location @active]])
 
 (r/render-component [app-container] (gdom/getElement "app"))
