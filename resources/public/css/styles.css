@@ -8,7 +8,7 @@ body {
 }
 
 .yelp {
-    background-image: url("/assets/yelp-logo.png");
+    background-image: url(/assets/yelp-logo.png);
     background-repeat: no-repeat;
     height: 65px;
     width: 132px;
@@ -31,7 +31,7 @@ body {
     background-size: cover;
 }
 
-.location {
+.destination {
     position: absolute;
     height: 30px;
     width: 30px;
@@ -40,20 +40,44 @@ body {
     border: 3px solid white;
     color: white;
     background-color: rgb(244, 13, 21);
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.location:hover {
+.destination:hover {
     border-color: rgb(244, 13, 21);
     color: rgb(244, 13, 21);
     background-color: white;
 }
 
+.location {
+    width: 100%;
+    margin: 0 10px;
+}
+
+.location-name {
+    font-size: 2.5em;
+    font-family: "TiamatRegular", sans-serif;
+    padding: 10px 10px 30px;
+}
+
+.location-description {
+    font-size: 14pt;
+    color: #444;
+    font-family: Georgia, serif;
+    line-height: 1.4em;
+    padding: 0 10px 20px;
+}
+
+.location-inventory {
+    font-family: "TiamatRegular", sans-serif;
+    font-size: 2rem;
+    padding: 0 10px 20px;
+}
+
 .item {
-    background-image: url("https://s3.amazonaws.com/files.d20.io/images/105716505/oymO0pnVyLCv-tQDw2vddA/med.png");
+    background-image: url(https://s3.amazonaws.com/files.d20.io/images/105716505/oymO0pnVyLCv-tQDw2vddA/med.png);
     margin: 0 5px;
     padding: 0 10px 5px;
     font-size: 1.5rem;
@@ -61,7 +85,7 @@ body {
 }
 
 .item-name {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bolder;
     font-variant: small-caps;
 }
@@ -90,4 +114,9 @@ body {
     font-family: mrs-eaves, serif;
     font-style: normal;
     font-weight: 400;
+}
+
+@font-face {
+    font-family: "TiamatRegular";
+    src: local('TiamatRegular'), url(/fonts/TiamatRegular.otf) format('opentype');
 }

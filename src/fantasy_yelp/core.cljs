@@ -7,48 +7,51 @@
 
 (defonce locations (r/atom []))
 
-(go (let [response (<! (http/get "/api/foo"
-                                 {:with-credentials? false}))]
+(go (let [response (<! (http/get "/api/locations"))]
       (reset! locations (response :body))))
 
 (defonce active (r/atom {}))
 
-(defn attribute [{:keys [name value]}]
-  [:div.attribute
-   [:div.attribute-name (str name ":")]
-   [:div {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
-   [:div value]])
+(defn attribute [item-name]
+  (fn [[key value]]
+    [:div.attribute {:key (str item-name key value)}
+     [:div.attribute-name (str (name key) ":")]
+     [:div {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
+     [:div value]]))
 
 (defn item [{:keys [name description attributes]}]
   [:div.item
    [:div.item-name name]
    [:div.item-description description]
-   (map (fn [[k v]]
-          [attribute {:key (str name k) :name k :value v}])
-        attributes)])
+   (map (attribute name) attributes)])
 
-(defn app-container []
-  [:div.app
-   [:div {:style {:display "flex"
-                  :height  "100%"
-                  :overflow "auto"}}
-    [:div.map
-     [:div.yelp]
-     (map-indexed (fn [index
-                       {:keys [style name] :as l}]
-                    [:div.location {:style    style
-                                    :key      name
-                                    :on-click (fn [_] (reset! active l))}
-                     (inc index)])
-                  @locations)]
-    [:div {:style {:width "100%"}}
+(defn destination [index location]
+  [:div.destination {:style    (location :style)
+                     :key      (location :name)
+                     :on-click #(reset! active location)}
+   (inc index)])
+
+(defn location [{:keys [name description items]}]
+  (if name
+    [:div.location
+     [:div.location-name name]
+     [:div.location-description description]
+     [:div.location-inventory "Inventory"]
      [:div.gold]
      (map (fn [{:keys [name description] :as detail}]
             [:div {:key (str name description)}
              [item detail]
              [:div.gold]])
-          (@active :items))
-     ]
-    ]])
+          items)]))
+
+(defn app-container []
+  [:div.app
+   [:div {:style {:display  "flex"
+                  :height   "100%"
+                  :overflow "auto"}}
+    [:div.map
+     [:div.yelp]
+     (map-indexed destination @locations)]
+    [location @active]]])
 
 (r/render-component [app-container] (gdom/getElement "app"))

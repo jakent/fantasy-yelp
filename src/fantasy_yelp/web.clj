@@ -19,7 +19,7 @@
                     {:status 200
                      :body   (slurp (io/resource "public/index.html"))})}]
        ["/api"
-        ["/foo"
+        ["/locations"
          (fn [_]
                   {:status 200
                    :body   (config :locations)})]]]
