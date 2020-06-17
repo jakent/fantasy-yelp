@@ -8,7 +8,8 @@
             [reitit.ring :as ring]
             [muuntaja.core :as m]))
 
-(mount/defstate config :start (cp/load-config :merge [(cps/from-env)])
+(mount/defstate config :start (cp/load-config :merge [(cps/from-env)
+                                                      (cps/from-resource "triboar.edn")])
                 :stop :stopped)
 
 (def app
@@ -22,7 +23,7 @@
         ["/locations"
          (fn [_]
                   {:status 200
-                   :body   (config :locations)})]]]
+                   :body   (config :triboar)})]]]
       {:data {:muuntaja   m/instance
               :middleware [rm/format-response-middleware]}})
     (ring/routes

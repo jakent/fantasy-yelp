@@ -14,8 +14,7 @@
                  [http-kit "2.4.0-alpha6"]
                  [mount "0.1.16"]
                  [cprop "0.1.14"]]
-  :plugins [[lein-environ "1.1.0" :hooks false]
-            [lein-cljsbuild "1.1.7"]
+  :plugins [[lein-cljsbuild "1.1.7"]
             [lein-figwheel "0.5.19"]]
 
   :figwheel {:http-server-root "public"
@@ -25,7 +24,7 @@
 
   :uberjar-name "fantasy_yelp.jar"
 
-  :source-paths ["src"]
+  :source-paths ["src/clj"]
   :resource-paths ["resources"]
 
   :profiles {:dev     {:dependencies [[cider/piggieback "0.4.1"]
@@ -35,7 +34,7 @@
                                       :nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
                        :source-paths ["dev"]
                        :cljsbuild    {:builds [{:id           "dev"
-                                                :source-paths ["src"]
+                                                :source-paths ["src/cljs"]
                                                 :figwheel     true
                                                 :compiler     {:main                 "fantasy-yelp.core"
                                                                :preloads             [devtools.preload]
@@ -46,10 +45,10 @@
                                                                :recompile-dependents true
                                                                :source-map           true}}]}}
              :uberjar {:env          {:production true}
-                       :source-paths ["src"]
+                       :source-paths ["src/clj"]
                        :prep-tasks   ["compile" ["cljsbuild" "once"]]
                        :cljsbuild    {:builds [{:id           "production"
-                                                :source-paths ["src"]
+                                                :source-paths ["src/cljs"]
                                                 :jar          true
                                                 :compiler     {:main          "fantasy-yelp.core"
                                                                :asset-path    "js/out"
